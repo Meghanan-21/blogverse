@@ -8,6 +8,7 @@ const Header = () => {
         <Image
           src={assets.logos}
           width={180}
+          height={50}
           alt=""
           className="w-[130px] sm:w-auto"
         />
