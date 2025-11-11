@@ -11,7 +11,7 @@ const BlogItem = ({ title, description, category, image, id }) => {
       <Link href={`/blogs/${id}`}>
         <Image
           src={image}
-          alt=""
+          alt="img"
           width={400}
           height={400}
           className="border-b border-black"
@@ -35,7 +35,7 @@ const BlogItem = ({ title, description, category, image, id }) => {
           <Image
             src={assets.arrow}
             className="ml-2"
-            alt=""
+            alt="image"
             width={12}
             height={12}
           />

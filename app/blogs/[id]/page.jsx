@@ -1,27 +1,31 @@
 "use client";
 import { assets, blog_data } from "@/Assets/Assets/assets";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import Footer from "@/Components/Footer";
 import Link from "next/link";
 
 const Page = ({ params }) => {
-  const unwrappedParams = React.use(params); // ❗You said to keep this as-is
+  const unwrappedParams = React.use(params); // unwrap the params Promise
   const [data, setData] = useState(null);
 
-  const fetchBlogData = () => {
-    for (let i = 0; i < blog_data.length; i++) {
-      if (Number(unwrappedParams.id) === blog_data[i].id) {
-        setData(blog_data[i]);
-        console.log(blog_data[i]);
-        break;
-      }
+  const fetchBlogData = async () => {
+    try {
+      const response = await axios.get("/api/blog", {
+        params: { id: unwrappedParams.id },
+      });
+      // API returns { blog } for single blog or { blogs } for list — handle both
+      const payload = response.data.blog || response.data;
+      setData(payload);
+    } catch (err) {
+      console.error("Failed to fetch blog:", err);
     }
   };
 
   useEffect(() => {
-    fetchBlogData();
-  }, []);
+    if (unwrappedParams?.id) fetchBlogData();
+  }, [unwrappedParams]);
 
   return data ? (
     <>
@@ -38,7 +42,7 @@ const Page = ({ params }) => {
           </Link>
           <button className="flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-black shadow-[-7px_7px_0px_#000000]">
             Get Started
-            <Image src={assets.arrow} alt="arrow" />
+            <Image src={assets.arrow} alt="arrow" width={12} height={12} />
           </button>
         </div>
 
@@ -46,10 +50,14 @@ const Page = ({ params }) => {
           <h1 className="text-2xl sm:text-4xl font-semibold">{data.title}</h1>
           <Image
             className="mx-auto mt-6 border border-white rounded-full"
-            src={data.author_img}
+            src={
+              data.authorImg && data.authorImg !== "/author_img.png"
+                ? data.authorImg
+                : assets.profile_icon
+            }
             width={60}
             height={60}
-            alt=""
+            alt={`${data.author} avatar`}
           />
           <p className="mt-1 pb-2 text-lg max-w-[740px] mx-auto">
             {data.author}
@@ -63,7 +71,7 @@ const Page = ({ params }) => {
           src={data.image}
           width={1280}
           height={720}
-          alt=""
+          alt={data.title}
         />
         <h1 className="my-8 text-[26px] font-semibold">Introduction</h1>
         <p>{data.description}</p>
@@ -121,9 +129,24 @@ const Page = ({ params }) => {
             share this article on social media
           </p>
           <div className="flex">
-            <Image src={assets.facebook_icon} width={50} alt="" />
-            <Image src={assets.twitter_icon} width={50} alt="" />
-            <Image src={assets.googleplus_icon} width={50} alt="" />
+            <Image
+              src={assets.facebook_icon}
+              width={50}
+              height={50}
+              alt="share to facebook"
+            />
+            <Image
+              src={assets.twitter_icon}
+              width={50}
+              height={50}
+              alt="share to twitter"
+            />
+            <Image
+              src={assets.googleplus_icon}
+              width={50}
+              height={50}
+              alt="share to google plus"
+            />
           </div>
         </div>
       </div>
