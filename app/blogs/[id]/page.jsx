@@ -73,57 +73,12 @@ const Page = ({ params }) => {
           height={720}
           alt={data.title}
         />
-        <h1 className="my-8 text-[26px] font-semibold">Introduction</h1>
-        <p>{data.description}</p>
 
-        <h3 className="my-5 text-[18px] font-semibold">
-          step1: Reflection and goal setting
-        </h3>
-        <p className="my-3">
-          As you reflect, look back at all you're thankful for since setting
-          your goal
-        </p>
-        <p className="my-3">
-          As you reflect, look back at all you're thankful for since setting
-          your goal
-        </p>
+        <div
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: data.description }}
+        />
 
-        <h3 className="my-5 text-[18px] font-semibold">
-          step2: Reflection and goal setting
-        </h3>
-        <p className="my-3">
-          As you reflect, look back at all you're thankful for since setting
-          your goal
-        </p>
-        <p className="my-3">
-          As you reflect, look back at all you're thankful for since setting
-          your goal
-        </p>
-
-        <h3 className="my-5 text-[18px] font-semibold">
-          step3: Reflection and goal setting
-        </h3>
-        <p className="my-3">
-          As you reflect, look back at all you're thankful for since setting
-          your goal
-        </p>
-        <p className="my-3">
-          As you reflect, look back at all you're thankful for since setting
-          your goal
-        </p>
-
-        <h3 className="my-5 text-[18px] font-semibold">Conclusion</h3>
-        <p className="my-3">
-          Self-reflection and goal setting are powerful tools for personal and
-          professional growth. Through self-reflection, individuals gain a
-          deeper understanding of their strengths, weaknesses, values, and
-          motivations. This awareness provides the foundation for setting
-          meaningful and realistic goals that align with one’s vision and
-          purpose. By regularly evaluating progress and adjusting goals as
-          needed, people can stay motivated, overcome challenges, and
-          continuously improve. Ultimately, the combination of self-reflection
-          and goal setting fosters lifelong learning, resilience, and success.
-        </p>
         <div className="my-24">
           <p className="text-black font-semibold my-4">
             share this article on social media

@@ -4,6 +4,7 @@ import { writeFile } from "fs/promises";
 import path from "path";
 import { connectDB } from "@/lib/config/db";
 import BlogModel from "@/lib/models/BlogModel";
+const fs = require("fs");
 
 // Function to connect to the database when API starts
 const LoadDB = async () => {
@@ -109,4 +110,22 @@ export async function POST(request) {
       { status: 500 }
     );
   }
+}
+//api end point to delete method
+export async function DELETE(request) {
+  const id = new URL(request.url).searchParams.get("id"); // FIX 1
+
+  const blog = await BlogModel.findById(id);
+
+  if (!blog) {
+    return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+  }
+
+  if (blog.image) {
+    fs.unlink(`./public${blog.image}`, () => {}); // FIX 2
+  }
+
+  await BlogModel.findByIdAndDelete(id);
+
+  return NextResponse.json({ msg: "Blog deleted successfully" });
 }

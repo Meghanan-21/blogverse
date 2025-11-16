@@ -15,7 +15,7 @@ const page = () => {
     title: "",
     description: "",
     category: "Startup",
-    author: "megha",
+    author: "Meghana",
     authorImg: "/author_img.png",
   });
 
@@ -42,7 +42,7 @@ const page = () => {
           title: "",
           description: "",
           category: "Startup",
-          author: "meghana",
+          author: "Meghana",
           authorImg: "/author_img.png",
         });
       } else {

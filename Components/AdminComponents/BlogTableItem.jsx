@@ -2,7 +2,15 @@ import { assets } from "@/Assets/Assets/assets";
 import Image from "next/image";
 import React from "react";
 
-const BlogTableItem = ({ authorImg, title }) => {
+const BlogTableItem = ({
+  authorImg,
+  title,
+  author,
+  date,
+  deleteBlog,
+  mongoId,
+}) => {
+  const BlogDate = new Date(date); //converting date string to date object
   return (
     <tr className="bg-white border-b">
       <th
@@ -10,16 +18,26 @@ const BlogTableItem = ({ authorImg, title }) => {
         className="items-center gap-3 hidden sm:flex px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
       >
         <Image
-          src={authorImg ? authorImg : assets.profile_icon}
+          src={
+            authorImg && authorImg !== "/author_img.png"
+              ? authorImg
+              : assets.profile_icon
+          }
           alt={title ? `${title} author` : "author avatar"}
           width={40}
           height={40}
           className="rounded-full"
         />
+        <p>{author ? author : "No author"}</p>
       </th>
       <td className="px-6 py-4">{title ? title : "no title"}</td>
-      <td className="px-6 py-4">{"11 jan 2024"}</td>
-      <td className="px-6 py-4">{"hey"}</td>
+      <td className="px-6 py-4">{BlogDate.toDateString()}</td>
+      <td
+        onClick={() => deleteBlog(mongoId)}
+        className="px-6 py-4 cursor-pointer"
+      >
+        {"X"}
+      </td>
     </tr>
   );
 };
